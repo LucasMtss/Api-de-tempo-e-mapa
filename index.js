@@ -4,9 +4,20 @@ apiKey = "0e534d9ef449a0660cbde3daf8afefeb";
 
 var req = new XMLHttpRequest();
 
+let map
+
+map = L.map('map')
 
 
 const button = document.querySelector("#search");
+
+const input = document.querySelector("#inputCityName");
+
+input.addEventListener("keypress",function(event) {
+  if (event.keyCode === 13) {
+      button.click();
+  }
+})
 
 button.onclick = () => {
   const cityName = document.querySelector("#inputCityName");
@@ -99,8 +110,7 @@ const writeWeatherInformations = (json) => {
   divMap.style.display = 'block'
 
   
-  let map
-  map = L.map('map').setView([json.coord.lat, json.coord.lon], 14);
+  map.setView([json.coord.lat, json.coord.lon], 14);
 
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
