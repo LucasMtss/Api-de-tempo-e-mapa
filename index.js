@@ -20,6 +20,9 @@ input.addEventListener("keypress",function(event) {
 })
 
 button.onclick = () => {
+  const loading = document.querySelector("#loading")
+  loading.style.display = 'inline-block'
+  button.style.display = 'none'
   const cityName = document.querySelector("#inputCityName");
 
   req.onloadend = function () {
@@ -44,8 +47,21 @@ const createElement = (type, content) => {
 };
 
 const writeWeatherInformations = (json) => {
+  const loading = document.querySelector("#loading")
+  loading.style.display = 'none'
+  button.style.display = 'block'
   const container = document.querySelector("#informations");
   container.innerHTML = "";
+  if(json.cod == 404){
+    container.appendChild(
+      createElement(
+        "h1",
+        'Cidade não encontrada'
+      )
+    );
+    const divMap = document.querySelector("#map");
+    divMap.style.display = 'none'
+  }
 
   container.appendChild(
     createElement(
