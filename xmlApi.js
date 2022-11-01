@@ -48,6 +48,22 @@ const writeWeatherInformations = (xml) => {
   button.style.display = 'block'
   const container = document.querySelector("#informations");
   container.innerHTML = "";
+  
+  if(xml.getElementsByTagName('ClientError').length){
+    error = xml.getElementsByTagName('ClientError')[0]
+    code = xml.getElementsByTagName('cod')[0]
+    if(code.textContent = "404"){
+        container.appendChild(
+          createElement(
+            "h1",
+            'Cidade não encontrada'
+          )
+        );
+        const divMap = document.querySelector("#map");
+        divMap.style.display = 'none'
+        return
+    }
+  }
 
   container.appendChild(
     createElement(
